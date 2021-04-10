@@ -1,0 +1,7 @@
+{
+  "name": "envtro",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
