@@ -1,0 +1,18 @@
+.action-sheet-button.sc-ion-action-sheet-md{
+    color:black
+}
+
+.ion-ios-trash-solid,
+  .ion-md-trash-solid {
+    content: url('/assets/icon/lorry.png')!important;
+  }
+
+  /* .action-sheet-icon{
+    content: url('/assets/icon/lorry.png')!important;
+  } */
+
+  .menu-border-top{
+    --background:red!important 
+  }
+
+ 

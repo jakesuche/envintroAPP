@@ -1,0 +1,25 @@
+/* ion-toolbar {
+    --background: var(--ion-color-primary);
+    --color:var(--ion-color-primary-contrast);
+} */
+
+.menu-border-top{
+    --background:red!important 
+  }
+  .cupertino-pane-wrapper {
+    
+    
+    --cupertino-pane-background: #38434d!important
+}
+
+
+  .invoice-number .modal-wrapper {
+    max-height: 45%!important;
+  overflow-y: unset!important;
+  top: 30%;
+  position: absolute;
+  display: block;
+  width: 370px;
+    border-radius: 9px;
+  }
+ 
