@@ -3,13 +3,12 @@
     <ion-header class="ion-no-border">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button default-href="/invoices"></ion-back-button>
-          <!-- <ion-button @click="closeModal">
+          <ion-button @click="closeModal">
             <ion-icon :icon="arrowBack"> </ion-icon>
-          </ion-button> -->
+          </ion-button>
         </ion-buttons>
         <ion-title slot="start">
-          New Invoice
+          New Sales Order
         </ion-title>
 
         <ion-buttons slot="end">
@@ -285,7 +284,7 @@
                 <ion-icon :icon="icons.trash"> </ion-icon>
               </ion-button>
               <ion-button
-                
+                :disabled="imageUrlArray.length == 5"
                 @click="takePhoto"
               >
                 <ion-icon :icon="icons.documentAttachOutline"> </ion-icon>
@@ -604,3 +603,102 @@ ion-buttons ion-button ion-icon {
 </style>
 
 
+
+// import { Plugins, CameraResultType } from "@capacitor/core"; // const {
+Camera, BarcodeScanner } = Plugins; import { Plugins, CameraResultType } from
+"@capacitor/core"; const { Camera } = Plugins; import { CupertinoPane } from
+"cupertino-pane"; import { BarcodeScanner } from
+"@ionic-native/barcode-scanner"; import AddLineModal from
+"@/components/Modals/AddLineModal.vue"; import AddInvoiceNumber from
+"@/components/Modals/AddInvoiceNumber.vue"; import { arrowBack, readerOutline,
+addCircleSharp, addCircle, settingsOutline, } from "ionicons/icons"; import
+EventBus from "@/EventBus"; import { IonPage, IonTitle, IonHeader, IonToolbar,
+IonContent, IonBackButton, IonButtons, IonLabel, IonIcon, IonItem, IonInput,
+IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonGrid, IonRow, IonCol,
+IonCheckbox, modalController, IonDatetime, IonModal, loadingController,
+IonSlide, IonSlides, } from "@ionic/vue"; export default { data() { return {
+arrowBack, readerOutline, individual: "individual", business: "business", name:
+"", check: "", addCircle, settings: settingsOutline, form: { customerType: "",
+lastname: "", firstname: "", businessname: "", customerDisplayName: "", email:
+"", phone: "", mobile: "", }, addCircleSharp, showAddSocial: false,
+barCoderesult: "", invoiceNumber: "", modalValue: false, imageUrl: "",
+imageUrlArray: [], }; }, mounted() { this.closeModal();
+console.log(this.imageUrlArray); }, created() {}, components: { IonBackButton,
+IonPage, IonTitle, IonHeader, IonToolbar, IonContent, IonButtons, IonLabel,
+IonIcon, IonItem, IonInput, IonCard, IonCardContent, IonCardHeader,
+IonCardTitle, IonGrid, IonRow, IonCol, IonCheckbox, IonDatetime, IonModal,
+AddInvoiceNumber, }, methods: { async takePicture() { const image = await
+Camera.getPhoto({ quality: 90, allowEditing: true, resultType:
+CameraResultType.Uri, }); this.imageUrlArray.push({ image: image.webPath });
+this.imageUrl = image.webPath; console.log(this.imageUrlArray); }, presentIt() {
+let pane = this.$refs["pane"]; this.drawer = new
+CupertinoPane(".cupertino-pane", { backdrop: true, }); setTimeout(() =>
+this.drawer.present({ animate: true })); }, async createLoading() { let loading
+= await loadingController.create({ message: "generating", }); loading.present();
+}, async presentModalSettings() { const modal = await modalController.create({
+component: AddInvoiceNumber, cssClass: "invoice-number", }); modal.present(); },
+async presentModal() { const modal = await modalController.create({ component:
+AddLineModal, }); modal.present(); }, scanBarcode() { BarcodeScanner.scan(
+function(result) { this.barCoderesult = result.text; }, function(error) {
+alert("scanning failed" + error); }, { preferFrontCamera: true, // iOS and
+Android showFlipCameraButton: true, // iOS and Android showTorchButton: true, //
+iOS and Android torchOn: true, // Android, launch with the torch switched on (if
+available) saveHistory: true, // Android, save scan history (default false)
+prompt: "Place a barcode inside the scan area", // Android
+resultDisplayDuration: 500, // Android, display scanned text for X ms. 0
+suppresses it entirely, default 1500 formats: "QR_CODE,PDF_417", // default: all
+but PDF_417 and RSS_EXPANDED orientation: "landscape", // Android only
+(portrait|landscape), default unset so it rotates with the device
+disableAnimations: true, // iOS disableSuccessBeep: false, // iOS and Android }
+); }, // scanBarcode() { // BarcodeScanner.scan() // .then((barcodeData) => { //
+this.barCoderesult = barcodeData; // let result = JSON.stringify(err); //
+alert(result); // console.log("Barcode data", barcodeData); // }) //
+.catch((err) => { // let error = JSON.stringify(err); // console.log("Error",
+err); // alert(error); // }); // }, checked(e) { console.log(e.detail.value);
+this.form.customerType = e.detail.value; }, showSocial() { this.showAddSocial =
+true; }, generateInvoiceNumber() { this.createLoading(); setTimeout(() => {
+this.invoiceNumber = `${345}${Math.floor(Math.random() * 9999999999)}`;
+loadingController.dismiss(); }, 3000); }, async closeModal() { let modal = await
+modalController.dismiss(); // EventBus().emitter.emit('closeModal',true) },
+openCustomeModal() { this.modalValue = true; }, }, }; ion-content {
+--background: #a3acb50d; } ion-toolbar { --background: #343a40; } ion-input {
+--padding-start: 20px; } .label-check { margin-left: 10px; } ion-label { color:
+#4c0cc4b5 !important; font-size: 24px !important; margin-bottom: 12px
+!important; } ion-input { border-bottom: 1px solid rgba(47, 11, 84, 0.153)
+!important; --placeholder-opacity: 0.2; --placeholder-color: #9870e2; --color:
+#9870e2; --padding-bottom: 0px !important; } .picker-wrapper.sc-ion-picker-md {
+border: none !important; } ion-button { height: 55px; } ion-select {
+border-bottom: 1px solid #d4c4c4; } ion-card { border-radius: 12px; } .times {
+color: red; } .card-content-md h3 { font-size: 18px !important; color: #4d0cc4;
+} .addlinebtn { --border-color: #4d0cc4 !important; --ripple-color: #4d0cc4; }
+.addlinebtn ion-icon { color: #4d0cc4; font-size: 30px; padding-right: 10px; }
+button { position: absolute; top: 45px; right: 0; } .cupertino-pane-wrapper {
+--cupertino-pane-background: #212931d4 !important; } div.pane {
+--cupertino-pane-background: #212931d4 !important; } div.pane-cutino {
+box-shadow: none; background: #212931d4 !important; } .cupertino-pane {
+--cupertino-pane-background: red !important; } .cupertino-card { background:
+none; box-shadow: none; } .cupertino-card ion-item { --background: none
+!important; margin-left: -17px; } .cupertino-card ion-item:last-child {
+margin-right: -12px; } .cupertino-card ion-button { --border-radius: 10px
+!important; --background: hsl(0deg 0% 80% / 50%); --box-shadow: none !important;
+} .cupertino-card ion-label { color: #e9ecef !important; font-weight: 200; }
+.cupertino-card ion-input { background: hsl(0deg 0% 100% / 36%); border-radius:
+12px; --padding-start: 12px; --color: #dee2e6; min-height: 50px; } .contain {
+padding-right: 0; padding-left: 0; } .custom-modal-bg { position: fixed; top: 0;
+left: 0; width: 100%; height: 100vh; background-color: rgba(0, 0, 0, 0.5);
+z-index: 100001; display: flex; justify-content: center; align-items: center;
+visibility: hidden; opacity: 0; /* transition:visibility 0s opacity 0.5s; */
+transition: visibility 0s linear 300ms, opacity 300ms; } .bg-active {
+visibility: visible; opacity: 1; transition: visibility 0s linear 0s, opacity
+300ms; } .custom-modal { background-color: white; width: 90%; display: flex;
+justify-content: center; align-items: center; flex-direction: column;
+border-radius: 12px; } .close-custom-modal { position: absolute; z-index:
+111111; right: 10px; } .modal-card { box-shadow: none !important; } .modal-card
+ion-title { color: black; margin-bottom: 29px; position: relative; top: 11px; }
+.modal-card img { margin-bottom: 100px !important; margin-top: 20px; }
+.modal-card ion-button { --background: #6225d2; } .modal-card ion-icon {
+font-size: 30px; } .uploadfile { color: #6225d2; } .attachment-button { display:
+flex; justify-content: space-around; margin-bottom: 200px; margin-top: 20px;
+--border-radius: 20px; align-items: center; } .attachment-note { display: flex;
+justify-content: space-around; text-align: center; margin-top: 20px;
+align-items: center; }

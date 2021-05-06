@@ -79,6 +79,6 @@ export default {
 
 <style scoped>
   ion-toolbar {
-  --background: #343a40;
+  --background: none
 }
 </style>

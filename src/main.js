@@ -25,10 +25,8 @@ import '@ionic/vue/css/display.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap'
 import 'qrious'
-import VuePhoneNumberInput from 'vue-phone-number-input';
-import 'vue-phone-number-input/dist/vue-phone-number-input.css';
-// import sweetAlert from 'vue-sweetalert2'
-// import 'sweetalert2/dist/sweetalert2.min.css';
+
+
  
 /* Theme variables */
 import './theme/variables.css';
@@ -40,8 +38,11 @@ import icons from '@/icon'
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import EventBus from "@/EventBus";
 
-
-
+import 'vue2-slot-calendar/lib/calendar.min.css';
+import calendar from 'vue2-slot-calendar/lib/calendar';
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+import Loader from '@/components/loader'
 
 const app = createApp(App)
   .use(IonicVue)
@@ -51,8 +52,11 @@ const app = createApp(App)
   .use(store)
   app.config.globalProperties.icons = icons
   app.config.globalProperties.$EventBus  = EventBus 
-app.component('vue-phone-number-input',VuePhoneNumberInput)
+
+  app.component('Calendar', calendar)
+  app.component('Loader', Loader)
 app.component('base-layout', BaseLayout ) 
+app.use(VueSweetalert2);
 router.isReady().then(() => {
   
   app.mount('#app');

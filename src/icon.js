@@ -35,11 +35,25 @@ import {
   globe,
   logoFacebook,
   logoInstagram,
-  navigate
+  navigate,
+  lockClosed,
+  closeCircle,
+  thumbsUp,
+  close,
+  documentAttachOutline,
+  trash,
+  listOutline
 
 } from "ionicons/icons";
 
 const icon = {
+  listOutline,
+  documentAttachOutline,
+  trash,
+  close,
+  thumbsUp,
+  closeCircle,
+  lockClosed,
   phonePortrait,
   call,
   person,

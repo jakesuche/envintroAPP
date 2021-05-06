@@ -12,7 +12,7 @@
         </ion-title>
 
         <ion-buttons slot="end">
-          <ion-button>
+          <ion-button @click="createCustomer">
             <ion-title>
               SAVE
             </ion-title>
@@ -30,193 +30,260 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
-      <ion-card>
-        <ion-card-content>
-          <ion-item>
-            <ion-thumbnail slot="start">
-              <img
-                :src="
-                  imageUrl
-                    ? imageUrl
-                    : 'https://via.placeholder.com/150'
-                "
-                alt=""
-              />
-            </ion-thumbnail>
-            <ion-button
-              @click="takePhoto"
-              size="default"
-              fill="clear"
-              style="color: white; --background:#dc3545c4"
-            >
-              <ion-icon :icon="icons.camera" slot="start"></ion-icon>
-              <span >Take Photo</span>
-            </ion-button>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating" style="color:#343a40"
-              >First Name</ion-label
-            >
-            <ion-input></ion-input>
-            <ion-icon
-              class="form-icon"
-              :icon="icons.documentTextOutline"
-              slot="start"
-            ></ion-icon>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating" style="color:#343a40"
-              >Last Name</ion-label
-            >
-            <ion-input></ion-input>
-            <ion-icon
-              class="form-icon"
-              :icon="icons.documentText"
-              slot="start"
-            ></ion-icon>
-          </ion-item>
-
-          <ion-item>
-            <ion-label position="floating" style="color:#343a40"
-              >Customer Name</ion-label
-            >
-            <ion-input placeholder="Type to add"></ion-input>
-            <ion-icon
-              class="form-icon"
-              :icon="icons.accessibility"
-              slot="start"
-            ></ion-icon>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating" style="color:#343a40"
-              >Email</ion-label
-            >
-            <ion-input placeholder="Type to add"></ion-input>
-            <ion-icon
-              class="form-icon"
-              :icon="icons.mail"
-              slot="start"
-            ></ion-icon>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating" style="color:#343a40"
-              >Phone</ion-label
-            >
-            <ion-input placeholder="Type to add"></ion-input>
-            <ion-icon
-              class="form-icon"
-              :icon="icons.phonePortrait"
-              slot="start"
-            ></ion-icon>
-          </ion-item>
-
-          <ion-item>
-            <ion-label position="floating" style="color:#343a40"
-              >Mobile</ion-label
-            >
-            <ion-input placeholder="Type to add"></ion-input>
-            <ion-icon
-              class="form-icon"
-              :icon="icons.call"
-              slot="start"
-            ></ion-icon>
-          </ion-item>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card>
-        <ion-card-header class="d-flex justify-content-between">
-          <ion-card-title style="color:black;">
-            Other Details
-          </ion-card-title>
-        </ion-card-header>
-
-        <ion-card-content>
-          <ion-item class="container-fluid">
-            <ion-icon
-              class="form-icon"
-              :icon="icons.cash"
-              slot="start"
-            ></ion-icon>
-            <ion-label>Currency</ion-label>
-            <ion-select interface="popover">
-              <ion-select-option value="usd"
-                >United State Dollar</ion-select-option
-              >
-              <ion-select-option value="GBP"
-                >United Kingdom Pounds</ion-select-option
-              >
-            </ion-select>
-          </ion-item>
-
-          <ion-item class="container-fluid" lines="none" v-if="!showAddSocial">
-            <ion-label  @click="showSocial"
-              >Add Social Contact</ion-label
-            >
-          </ion-item>
-          <ion-card-content v-if="showAddSocial">
-            <ion-item>
-              <ion-label position="floating" style="color:#343a40"
-                >Website</ion-label
-              >
-              <ion-input></ion-input>
-              <ion-icon
-                class="form-icon"
-                :icon="icons.globe"
-                slot="start"
-              ></ion-icon>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating" style="color:#343a40"
-                >Facebook</ion-label
-              >
-              <ion-input></ion-input>
-              <ion-icon
-                class="form-icon"
-                :icon="icons.logoFacebook"
-                slot="start"
-              ></ion-icon>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating" style="color:#343a40"
-                >Instagram</ion-label
-              >
-              <ion-input value="@"></ion-input>
-              <ion-icon
-                class="form-icon"
-                :icon="icons.logoInstagram"
-                slot="start"
-              ></ion-icon>
-            </ion-item>
-          </ion-card-content>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card>
-        <ion-item @click="OpenBilling"  button="true" class="ion-activated" lines="none">
-          <ion-icon 
-            
-            :icon="icons.navigate"
-            slot="start"
-            class="form-icon"
-          ></ion-icon>
-          <ion-label   style="color:#343a40"
-            >Add Billing & Shipping address
-          </ion-label>
+    <ion-content fullscreen>
+      <div class="form">
+        <ion-item>
+          <ion-thumbnail slot="start" @click="openCustomeModal">
+            <img
+              :src="imageUrl ? imageUrl : 'https://via.placeholder.com/150'"
+              alt=""
+            />
+          </ion-thumbnail>
+          <ion-button
+            @click="takePhoto"
+            size="default"
+            fill="clear"
+            style="color: white; --background:var(--primary)"
+          >
+            <ion-icon :icon="icons.camera" slot="start"></ion-icon>
+            <span>Take Photo</span>
+          </ion-button>
         </ion-item>
-      </ion-card>
-     <AddContact/>
+        <ion-list lines="none">
+          <div id="anime">
+            <ion-item
+              class="animate__animated animate__fadeInUp  "
+              lines="none"
+            >
+              <div class="ite_inner d-flex " id="my-flex">
+                <ion-icon
+                  :icon="icons.person"
+                  class="zmdi zmdi-account ion-text-start"
+                ></ion-icon>
+                <!-- <ion-label position="floating">phone_number</ion-label> -->
+                <ion-input v-model="form.firstname" placeholder="First Name" type="text"></ion-input>
+              </div>
+            </ion-item>
+          </div>
+
+          <div id="anime">
+            <ion-item class="animate__animated animate__fadeInUp" lines="none">
+              <div class="ite_inner d-flex">
+                <ion-icon
+                  :icon="icons.person"
+                  class="zmdi zmdi-account ion-text-start"
+                ></ion-icon>
+                <!--				<ion-label position="fixed">{{'full_name' | translate}}</ion-label>-->
+                <ion-input v-model="form.lastname" placeholder="Last Name" type="name"></ion-input>
+              </div>
+            </ion-item>
+          </div>
+          <div id="anime">
+            <ion-item class="animate__animated animate__fadeInUp" lines="none">
+              <div class="ite_inner d-flex">
+                <ion-icon
+                  :icon="icons.reader"
+                  class="zmdi zmdi-email ion-text-start"
+                ></ion-icon>
+                <!--				<ion-label position="fixed">{{'email_address' | translate}}</ion-label>-->
+                <ion-input v-model="form.companyName" placeholder="Company Name" type="name"></ion-input>
+              </div>
+            </ion-item>
+          </div>
+          <div id="anime">
+            <ion-item class="animate__animated animate__fadeInUp" lines="none">
+              <div class="ite_inner d-flex">
+                <ion-icon
+                  :icon="icons.reader"
+                  class="zmdi zmdi-email ion-text-start"
+                ></ion-icon>
+                <!--				<ion-label position="fixed">{{'email_address' | translate}}</ion-label>-->
+                <ion-input v-model="form.displayname"
+                  placeholder="Customer Display Name"
+                  type="name"
+                ></ion-input>
+              </div>
+            </ion-item>
+          </div>
+          <div id="anime">
+            <ion-item class="animate__animated animate__fadeInUp" lines="none">
+              <div class="ite_inner d-flex">
+                <ion-icon
+                  :icon="icons.mail"
+                  class="zmdi zmdi-email ion-text-start"
+                ></ion-icon>
+                <!--				<ion-label position="fixed">{{'email_address' | translate}}</ion-label>-->
+                <ion-input v-model="form.email" placeholder="Email address" type="name"></ion-input>
+              </div>
+            </ion-item>
+          </div>
+          <div id="anime">
+            <ion-item class="animate__animated animate__fadeInUp" lines="none">
+              <div class="ite_inner d-flex">
+                <ion-icon
+                  :icon="icons.phonePortrait"
+                  class="zmdi zmdi-email ion-text-start"
+                ></ion-icon>
+                <!--				<ion-label position="fixed">{{'email_address' | translate}}</ion-label>-->
+                <ion-input v-model="form.phone" placeholder="Phone" type="name"></ion-input>
+              </div>
+            </ion-item>
+          </div>
+          <div id="anime">
+            <ion-item class="animate__animated animate__fadeInUp" lines="none">
+              <div class="ite_inner d-flex">
+                <ion-icon
+                  :icon="icons.call"
+                  class="zmdi zmdi-email ion-text-start"
+                ></ion-icon>
+                <!--				<ion-label position="fixed">{{'email_address' | translate}}</ion-label>-->
+                <ion-input v-model="form.mobile" placeholder="Mobile" type="name"></ion-input>
+              </div>
+            </ion-item>
+          </div>
+        
+          <div id="anime">
+            <ion-item class="animate__animated animate__fadeInUp" lines="none">
+              <div class="ite_inner d-flex">
+                <ion-icon
+                  :icon="icons.cash"
+                  class="zmdi zmdi-email ion-text-start"
+                ></ion-icon>
+                <!--				<ion-label position="fixed">{{'email_address' | translate}}</ion-label>-->
+                <ion-input v-model="form.currencyUsed" placeholder="Currency" type="name"></ion-input>
+              </div>
+            </ion-item>
+          </div>
+          <div id="anime">
+            <ion-item class="animate__animated animate__fadeInUp" lines="none">
+              <div class="ite_inner d-flex">
+                <ion-icon
+                  :icon="icons.thumbsUp"
+                  class="zmdi zmdi-email ion-text-start"
+                ></ion-icon>
+                <!--				<ion-label position="fixed">{{'email_address' | translate}}</ion-label>-->
+                <ion-input v-model="form.paymentTerms" placeholder="Payment terms" type="name"></ion-input>
+              </div>
+            </ion-item>
+          </div>
+
+          <hr />
+          <!-- social media section -->
+          <div id="anime">
+            <ion-item
+              class="container-fluid"
+              lines="none"
+              v-if="!showAddSocial"
+            >
+              <ion-label
+                style="color:var(--primary)!important"
+                @click="showSocial"
+                >Add Social Contact</ion-label
+              >
+            </ion-item>
+          </div>
+          <div v-show="showAddSocial">
+            <div id="anime">
+              <ion-item
+                class="animate__animated animate__fadeInUp"
+                lines="none"
+              >
+                <div class="ite_inner d-flex">
+                  <ion-icon
+                    :icon="icons.logoFacebook"
+                    class="zmdi zmdi-email ion-text-start"
+                  ></ion-icon>
+                  <!--				<ion-label position="fixed">{{'email_address' | translate}}</ion-label>-->
+                  <ion-input v-model="form.faceBook" placeholder="Facebook" type="name"></ion-input>
+                </div>
+              </ion-item>
+            </div>
+            <div id="anime">
+              <ion-item
+                class="animate__animated animate__fadeInUp"
+                lines="none"
+              >
+                <div class="ite_inner d-flex">
+                  <ion-icon
+                    :icon="icons.globe"
+                    class="zmdi zmdi-email ion-text-start"
+                  ></ion-icon>
+                  <!--				<ion-label position="fixed">{{'email_address' | translate}}</ion-label>-->
+                  <ion-input v-model="form.website" placeholder="Website" type="name"></ion-input>
+                </div>
+              </ion-item>
+            </div>
+          </div>
+        </ion-list>
+      </div>
     </ion-content>
-   
+    <div class="custom-modal-bg" :class="{ 'bg-active': modalValue }">
+      <div class="custom-modal">
+        <ion-card class="modal-card">
+          <ion-button @click="modalValue = false" class="close-custom-modal">
+            <ion-icon :icon="icons.close"> </ion-icon>
+          </ion-button>
+          <ion-title class="ion-text-center">
+            Attachments
+          </ion-title>
+          <!-- <ion-card-header>
+                <ion-card-subtitle>Attachments</ion-card-subtitle>
+                
+            </ion-card-header> -->
+
+          <!-- class="product-slider ion-padding-start" -->
+          <div v-if="imageUrlArray.length > 0">
+            <ion-slides
+              pager="true"
+              :options="{
+                slidesPerView: 'auto',
+                zoom: false,
+                grabCursor: true,
+              }"
+            >
+              <ion-slide v-for="(image, i) in imageUrlArray" :key="i">
+                <ion-col
+                  class="ion-text-left"
+                  @click="$router.push({ path: '/item-details' })"
+                >
+                  <img :src="image.image" alt="" />
+                </ion-col>
+              </ion-slide>
+            </ion-slides>
+          </div>
+
+          <ion-card-content>
+            <div class="attachment" v-if="!imageUrlArray.length > 0">
+              <ion-note class="attachment-note">
+                You can add up to 4 attachments, each not exceeding 5 MB.
+              </ion-note>
+
+              <ion-button @click="takePhoto" class="attachment-button">
+                Add Attachment
+              </ion-button>
+            </div>
+            <div class="justify-content-around" v-if="imageUrlArray.length > 0">
+              <ion-button>
+                <ion-icon :icon="icons.trash"> </ion-icon>
+              </ion-button>
+              <ion-button
+                :disabled="imageUrlArray.length == 5"
+                @click="takePhoto"
+              >
+                <ion-icon :icon="icons.documentAttachOutline"> </ion-icon>
+              </ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
   </ion-page>
 </template>
 
 <script>
-
 import { arrowBack, readerOutline, addCircleSharp } from "ionicons/icons";
 import EventBus from "@/EventBus";
-import { Plugins, CameraResultType } from '@capacitor/core';
+import { Plugins, CameraResultType } from "@capacitor/core";
 
 const { Camera } = Plugins;
 import {
@@ -240,8 +307,12 @@ import {
   IonCol,
   IonCheckbox,
   modalController,
+  createAnimation,
+  IonButton,
 } from "@ionic/vue";
 import AddContact from "@/components/Modals/AddBillings.vue";
+import { cardAnime } from "@/anime";
+// import anime from 'animejs'
 export default {
   data() {
     return {
@@ -252,22 +323,43 @@ export default {
       name: "",
       check: "",
       form: {
-        customerType: "",
-        lastname: "",
-        firstname: "",
-        businessname: "",
-        customerDisplayName: "",
-        email: "",
-        phone: "",
-        mobile: "",
+        firstname: null,
+        lastname: null,
+        displayname: null,
+        companyName: null,
+        phone: null,
+        mobile: null,
+        currencyUsed: null,
+        paymentTerms: null,
+        faceBook: null,
+        website: null,
+        remark: null,
+        email:null,
+        imageUrlArray: [],
+        shippingAddress: {
+          attention: null,
+          street: null,
+          state: null,
+          city: null,
+          zipCode: null,
+          country: null,
+          fax: null,
+          phone: null,
+        },
       },
       addCircleSharp,
       showAddSocial: false,
-      imageUrl:''
+      imageUrl: "",
+      doc: "",
+      modalValue: false,
+      imageUrlArray:[]
+
+      
     };
   },
-  mounted(){
-    console.log(this.$refs)
+  mounted() {
+    const doc = document.querySelectorAll("#anime");
+    this.animate(doc);
   },
   created() {},
   components: {
@@ -290,16 +382,22 @@ export default {
     IonRow,
     IonCol,
     IonCheckbox,
-    AddContact
-
+    AddContact,
+    IonButton,
   },
 
   methods: {
-    OpenBilling(){
-      
-     this.$EventBus().emitter.emit("openModal", true)
-  
-
+    createCustomer(){
+      this.$store.dispatch('customer/createCustomer' ,this.form)
+    },
+    openCustomeModal() {
+      this.modalValue = true;
+    },
+    animate(doc) {
+      cardAnime(doc);
+    },
+    OpenBilling() {
+      this.$EventBus().emitter.emit("openModal", true);
     },
     checked(e) {
       console.log(e.detail.value);
@@ -312,121 +410,158 @@ export default {
       let modal = await modalController.dismiss();
       // EventBus().emitter.emit('closeModal',true)
     },
-    async takePhoto(){
-      const image = await Camera.getPhoto({
-    quality: 90,
-    allowEditing: true,
-    resultType: CameraResultType.Uri
-  });
-  
-  var imageUrl = image.webPath;
-  console.log(imageUrl)
-  this.imageUrl= imageUrl;
-    }
+
+    async takePhoto() {
+      if (this.imageUrlArray >= 5) {
+        alert("You cant add more than 5");
+      } else {
+        const image = await Camera.getPhoto({
+          quality: 90,
+          allowEditing: true,
+          resultType: CameraResultType.Uri,
+        });
+
+        var imageUrl = image.webPath;
+        this.form.imageUrlArray.push({ image: image.webPath });
+        this.imageUrlArray.push({ image: image.webPath });
+        console.log(imageUrl);
+        this.imageUrl = imageUrl;
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
-ion-toolbar {
-  --background: #343a40;
-}
-ion-input {
-  --padding-start: 20px;
-}
-.label-check {
-  margin-left: 10px;
+.form {
+  padding-top: 50px;
 }
 
-.alert-btn {
-  font-size: 17px !important;
-  margin-top: 15px !important;
-  /* margin-right: 140px!important; */
-  position: absolute;
+.form ion-item {
+  background: var(--info_field_bg);
 }
-ion-content {
-  --background: #f5f5f5;
-}
-ion-toolbar {
-  --background: #343a40;
-}
-ion-input {
-  min-height: 45px;
-
-  /* border-bottom:1px solid black; */
-  --color: #6c757d;
-}
-.label-check {
-  margin-left: 10px;
+.form ion-item .item-input ion-label {
+  max-width: unset !important;
+  width: fit-content !important;
+  min-width: fit-content;
 }
 
-/* ion-label{
-   font-size: 24px!important;
-        color: rgb(24, 11, 84) !important;
-       font-family: 'Roboto', sans-serif;
-       margin-bottom:10px!important
-    
-
-  
-}  */
-/* .label[floating],
-.label[stacked],
-.input-has-focus .label[floating] {
-    color: #343a40 ;
-}  */
-.returnable {
-  color: rgb(52, 58, 64);
-  margin-top: 19px;
-  font-size: 19px;
+.form ion-item .item-input .item-select {
+  padding: 2px 13px;
+}
+.form ion-item .item-input .item-select ion-label {
+  display: none;
+}
+.form p {
+  color: var(--text-light) !important;
+  margin: 0;
+  font-size: 1rem !important;
+  letter-spacing: 0;
+  font-weight: 500;
+  line-height: 19px;
+  margin-bottom: 50px;
+  opacity: 0.8;
+}
+.form.button.btn.button-block {
+  margin-top: 25px;
+}
+.form h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 28px;
 }
 
-ion-radio {
-  margin-right: 10px;
+ion-footer .form {
+  padding-top: 0px !important;
 }
 
-ion-checkbox {
-  margin-right: 10px;
+ion-button ion-icon {
+  color: var(--white);
 }
-
-ion-card {
+.container-fluid {
+  background: none !important;
+}
+.container-fluid {
+}
+.custom-modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  /* transition:visibility 0s opacity 0.5s; */
+  transition: visibility 0s linear 300ms, opacity 300ms;
+}
+.bg-active {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s linear 0s, opacity 300ms;
+}
+.custom-modal {
+  background-color: white;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   border-radius: 12px;
 }
-.first-item-col {
-  margin-bottom: -19px;
-}
+.close-custom-modal {
+  position: absolute;
 
-.form-icon {
-  font-size: 36px;
-  margin-top: 19px;
-  color: #dc35466b;
-}
-ion-toggle {
-  --background: #dc3545c4;
-  --background-checked: #e9ecef;
-  --handle-background-checked: #dc3545c4;
-}
+  z-index: 111111;
 
-ion-checkbox {
-  margin-right: 10px;
-  --background-checked: #dc3545a1;
-  /* --border-color: white!important; */
-  --border-color-checked: #dc3545a1;
+  right: 10px;
 }
-:host :deep() ion-thumbnail {
-  --size: 45px !important;
-}
-ion-card {
+.modal-card {
   box-shadow: none !important;
 }
-ion-item {
-  --highlight-color-focused: #dc35458f;
-}
 
-ion-button{
-  --border-radius: 13px!important;
-  --box-shadow: -1px 1px 11px 2px rgba(51,41,51,0.41);
+.modal-card ion-title {
+  color: black;
+  margin-bottom: 29px;
+  position: relative;
+  top: 11px;
 }
-ion-button span{
-      font-size: 12px;
+.modal-card img {
+  margin-bottom: 100px !important;
+  margin-top: 20px;
+}
+.modal-card ion-button {
+  --background: var(--primary);
+  height: 55px;
+}
+.modal-card ion-icon {
+  font-size: 30px;
+}
+.uploadfile {
+  color: #6225d2;
+}
+.attachment-button {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 200px;
+  margin-top: 20px;
+  --border-radius: 20px;
+  align-items: center;
+}
+.attachment-note {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  margin-top: 20px;
+
+  align-items: center;
+}
+ion-buttons ion-button ion-icon {
+  color: black;
 }
 </style>

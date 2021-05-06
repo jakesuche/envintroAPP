@@ -1,10 +1,10 @@
 <template>
   <base-layout PageTitle="Dashboard">
     <template v-slot:ion-menu-btn>
-      <ion-menu-button color="light"></ion-menu-button>
+      <ion-menu-button></ion-menu-button>
     </template>
-
-    <ion-content>
+   
+    <ion-content v-if="showData">
       <div class="mb-3">
         <h4 class="sale-activity">
           Sales Activity
@@ -93,25 +93,163 @@
         <ion-fab-button @click="presentPane">
           <ion-icon :icon="addOutline"></ion-icon>
         </ion-fab-button>
-        <ion-fab-list side="top">
-          <ion-fab-button color="light">
-            <!-- <ion-icon name="logo-facebook"></ion-icon> -->
-            <img style="weight:50px" src="/assets/icon/lorry.png" />1
-          </ion-fab-button>
-          <ion-fab-button color="light">
-            <ion-icon name="logo-facebook"></ion-icon>
-          </ion-fab-button>
-          <ion-fab-button color="light">
-            <ion-icon name="logo-facebook"></ion-icon>
-          </ion-fab-button>
-          <ion-fab-button color="light">
-            <ion-icon name="logo-twitter"></ion-icon>
-          </ion-fab-button>
-          <ion-fab-button color="light">
-            <ion-icon name="logo-vimeo"></ion-icon>
-          </ion-fab-button>
-        </ion-fab-list>
       </ion-fab>
+      <!-- <ion-fab-button horizontal="end" color="primary" vertical="bottom">
+        <ion-icon :icon="addOutline"></ion-icon>
+      </ion-fab-button> -->
+    </ion-content>
+     <ion-content v-else >
+      <div>
+        <ion-list>
+          <ion-list-header class="mb-3">
+            <ion-label>
+              <ion-skeleton-text
+                animated
+                style="width: 20%"
+              ></ion-skeleton-text>
+            </ion-label>
+          </ion-list-header>
+          <ion-item lines="none" class="mb-3">
+            <ion-avatar
+              slot="start"
+              style="height: 70px;
+    width: 70px;"
+            >
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-avatar>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text
+                  animated
+                  style="width: 20%"
+                ></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text
+                  animated
+                  style="width: 80%"
+                ></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none" class="mb-3">
+            <ion-avatar
+              slot="start"
+              style="height: 70px;
+    width: 70px;"
+            >
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-avatar>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text
+                  animated
+                  style="width: 20%"
+                ></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text
+                  animated
+                  style="width: 80%"
+                ></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none" class="mb-3">
+            <ion-avatar
+              slot="start"
+              style="height: 70px;
+    width: 70px;"
+            >
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-avatar>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text
+                  animated
+                  style="width: 20%"
+                ></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text
+                  animated
+                  style="width: 80%"
+                ></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none" class="mb-3">
+            <ion-avatar
+              slot="start"
+              style="height: 70px;
+    width: 70px;"
+            >
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-avatar>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text
+                  animated
+                  style="width: 20%"
+                ></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text
+                  animated
+                  style="width: 80%"
+                ></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+
+          <ion-list-header class="mb-3">
+            <ion-label>
+              <ion-skeleton-text
+                animated
+                style="width: 50%"
+              ></ion-skeleton-text>
+            </ion-label>
+          </ion-list-header>
+          <ion-card id="uche">
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <div class="card-titles">
+                    <ion-card-subtitle class="mb-3"
+                      ><ion-skeleton-text
+                        animated
+                        style="width: 50%"
+                      ></ion-skeleton-text
+                    ></ion-card-subtitle>
+                    <ion-card-title class="mb-3"
+                      ><ion-skeleton-text
+                        animated
+                        style="width: 50%"
+                      ></ion-skeleton-text
+                    ></ion-card-title>
+                  </div>
+                </ion-col>
+                <ion-col>
+                  <div class="card-titles">
+                    <ion-card-subtitle class="mb-3"
+                      ><ion-skeleton-text
+                        animated
+                        style="width: 50%"
+                      ></ion-skeleton-text
+                    ></ion-card-subtitle>
+                    <ion-card-title class="mb-3"
+                      ><ion-skeleton-text
+                        animated
+                        style="width: 50%"
+                      ></ion-skeleton-text
+                    ></ion-card-title>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-list>
+      </div>
     </ion-content>
   </base-layout>
 </template>
@@ -169,6 +307,7 @@ export default {
       },
       drawer: {},
       IonicSafeString,
+      showData: false,
     };
   },
 
@@ -180,6 +319,10 @@ export default {
 
     this.urlEncoded = this.getQrl();
     console.log(this.urlEncoded);
+
+    setTimeout(() => {
+      this.showData = true
+    }, 3000);
   },
   components: {
     // DessetModal,
@@ -320,6 +463,7 @@ div.card-titles {
 }
 ion-card {
   border-radius: 10px;
+  box-shadow: none !important;
 }
 ion-card-title {
   color: black;
@@ -348,6 +492,7 @@ img {
 .sale-activity {
   margin-top: 12px;
   margin-left: 12px;
+  color: var(--primary);
 }
 
 .in_hand {
@@ -359,5 +504,14 @@ img {
 }
 .EditIcon {
   --color: #fd2626 !important;
+}
+ion-list {
+  background: none !important;
+}
+ion-item {
+  margin-left: 10px;
+  margin-right: 10px;
+
+  border-radius: 10px;
 }
 </style>

@@ -5,7 +5,8 @@ http://ionicframework.com/docs/theming/ */
 :root {
   /** primary **/
   --ion-color-primary: #3880ff;
-  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary-rgb: 56, 255, 192;
+  
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
   --ion-color-primary-shade: #3171e0;
@@ -97,5 +98,23 @@ http://ionicframework.com/docs/theming/ */
 --label-md-text-color: blue;
 --label-ios-text-color-focused: blue;
 --label-md-text-color-focused: blue;
-  --ion-toolbar-color:var(--ion-color-primary-contrast)
+  --ion-toolbar-color:var(--ion-color-primary-contrast);
+
+
+  /* main color for the app */
+
+ --white: #fff;
+ --primary: #0fc1a7;
+ --bg-color: #F4F7F8;
+ --bg-secondary: #C4EBF2;
+ --info_field_bg: #F4F7F8;
+ --transparent: rgba(0, 0, 0, 0);
+ --text-light: #7c7c7c;
+ --text-light2: #ababab;
+ --text-dark: #4D4D4D;
+ --text-black: #000;
+ --red_color: #FF0000;
+ --yelow_color: #FFBA00;
+ --green_color: #21b624; 
+ --pale-yellow:'#FA9B4A'
 }

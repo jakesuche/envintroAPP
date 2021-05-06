@@ -1,11 +1,23 @@
 <template>
-  <base-layout PageTitle="All item">
+  <base-layout PageTitle="Sales Order">
     <template v-slot:ion-menu-btn>
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button ></ion-menu-button>
     </template>
-
     <ion-content class="bg_color">
-      
+      <div class="total_earning animate__animated animate__fadeInUp">
+        <ion-row class="ion-text-center">
+          <ion-col size="12">
+            <ion-hearder>
+              <ion-searchbar
+                @ionBlur="hideColor"
+                @ionFocus="showSearchColorMethod"
+                :class="{ 'ion-backprimary': showSearchColor }"
+              ></ion-searchbar>
+            </ion-hearder>
+          </ion-col>
+        </ion-row>
+      </div>
+      <img src="@/theme/gifs/animation_500_knonw20j.gif" alt="" srcset="" />
           <ion-list>
             <ion-item  lines="none"
               class="accepted animate__animated animate__fadeInUp"
@@ -63,42 +75,18 @@
               </div>
             </ion-item>
           </ion-list>
-       
+         <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+        <ion-fab-button @click="createNewCustomer">
+          <ion-icon  :icon="icons.addOutline" ></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
     </ion-content>
-
-    <!-- <ion-content>
-      <ion-hearder>
-        <ion-searchbar></ion-searchbar>
-      </ion-hearder>
-      <ion-card>
-        <img src="@/theme/gifs/invoice_animation.gif" alt="" srcset="" />
-        <ion-card-header> </ion-card-header>
-      </ion-card>
-
-      <div class="ion-padding">
-        <ion-grid>
-          <ion-row>
-            <ion-col size="12">
-              <ion-button
-                v-sound
-                shape="round"
-                @click="createNewCustomer"
-                style="backgroud:#343a40"
-              >
-                Add items<ion-icon :icon="addOutline"></ion-icon>
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </div>
-    </ion-content> -->
-
-    <!-- ion menu here -->
+    
   </base-layout>
 </template>
 
 <script>
-import CreateItem from "@/components/Modals/CreateitemModal.vue";
+import CreateSaleOrderModal from "@/components/Modals/CreateSaleOrderModal.vue";
 import soundClick from "@/directives/clickSound/buttonClick.mp3";
 
 import {
@@ -147,11 +135,14 @@ export default {
       cardOutline,
       addOutline,
       menuSharp,
+      showSearchColor:false
     };
   },
 
   mounted() {
-    console.log(this.icons);
+    
+    console.log(this.icons)
+ 
   },
   components: {
     // DessetModal,
@@ -174,6 +165,13 @@ export default {
   },
 
   methods: {
+     hideColor(){
+      this.showSearchColor=false
+    },
+    showSearchColorMethod(){
+      
+      this.showSearchColor=true
+    },
     playSound() {
       var audio = new Audio(soundClick);
 
@@ -182,7 +180,7 @@ export default {
     async createNewCustomer() {
       this.playSound();
       let modal = await modalController.create({
-        component: CreateItem,
+        component: CreateSaleOrderModal,
       });
       return modal.present();
     },
@@ -191,8 +189,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap");
-
 ion-header {
   background: var(--white);
 }
@@ -345,8 +341,54 @@ ion-slides ion-slide {
   text-align: initial;
   position: relative;
 }
+ion-searchbar {
+  --border-radius: 10px;
+  --background: #e9ecef;
+  --box-shadow: none;
+  --color: #3c3b3b;
+  --placeholder-color: #3c3b3b;
+  --placeholder-font-weight: bold;
+  --placeholder-opacity: 1;
+   visibility:visible;
+   
+        /* width: 60%;
+        margin: 0 auto; */
+        text-align:left;
+    
+}
+.ion-backprimary{
+  --background:var(--primary);
+  color:var(--white)!important;
+  --placeholder-color: var(--white);
+  visibility:visible;
+  animation: fadeIn 5s;
+}
+.total_earning {
+  background: var(--white);
+  padding: 14px 17px;
+  margin: 8px 0;
+}
+.total_earning ion-row ion-col h2 {
+  margin: 0;
+  color: var(--text-light);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding-top: 5px;
+}
+.total_earning ion-row ion-col h2 span {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-black);
+}
 
-/* ion-toolbar {
+
+
+
+
+
+/* @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap");
+ion-toolbar {
   --background: #343a40;
 }
 ion-card {
@@ -394,6 +436,8 @@ ion-card {
   /* box-shadow: none; */
   /* border-bottom: 1px solid black; */
 }
+
+
 
 /* // css for slide */
 </style>

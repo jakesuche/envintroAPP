@@ -19,7 +19,8 @@ module.exports = {
     'no-unused-vars':'off',
     'vue/no-unused-components':'off',
     'no-undef':'off',
-    'no-async-promise-executor':'off'
+    'no-async-promise-executor':'off',
+    'vue/no-deprecated-filter':'off'
     
   },
   overrides: [

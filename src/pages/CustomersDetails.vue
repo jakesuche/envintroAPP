@@ -5,7 +5,7 @@
     </template>
   
     
-    <ion-segment ref="ion-segment" :value="0" color="danger" scrollable>
+    <ion-segment ref="ion-segment" :value="0"  scrollable>
       <ion-segment-button
         layout="icon-end"
         :value="i"
@@ -335,7 +335,7 @@ ion-content {
 }
 .icon-inside-grid {
   font-size: 30px;
-  color: #dc3545;
+  color: var(--yellow);
 }
 ion-toolbar {
   --background: #343a40;
@@ -355,4 +355,16 @@ ion-card {
 ion-item{
  margin-top:-13px 
 }
+
+ion-segment{
+  --color:red!important;
+ 
+}
+ion-segment-button{
+  --color-checked:var(--primary);
+  --border-color:var(--primary)
+
+}
+
+
 </style>
