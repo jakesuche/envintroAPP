@@ -67,10 +67,7 @@ const routes = [
     component:()=>import('../pages/createInvoice.vue'),
     meta:{onlyAuthUser:true}
   },
-  {
-    path:'/pane',
-    component:()=>import('../pages/ex1.vue')
-  },
+ 
   {
     path:'/vendors',
     component:()=>import('../pages/Vendor.vue'),

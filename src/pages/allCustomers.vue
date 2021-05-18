@@ -19,43 +19,27 @@
         </ion-row>
       </div>
 
-      <img src="@/theme/gifs/animation_500_knonw20j.gif" alt="" srcset="" />
-
-      <ion-list lines="none" >
-        <h2>Customers</h2>
-        <ion-item
+      <img v-show="!isShow()" src="@/theme/gifs/animation_500_knonw20j.gif" alt="" srcset="" />
+     
+      <ion-list v-if="isShow()" lines="none"  >
+        <h2>Customers  </h2>
+         <ion-item v-for="(customer, i) in customers()" :key="i"
           button="true"
-          @click="$router.push('/customerdetail')"
+          @click="$router.push({path:'/customerdetail', query:{id:customer._id }})"
           class="animate__animated animate__fadeInUp"
-          router-link="/customerdetail"
+          
         >
+       
           <ion-row>
             <ion-col size="7">
-              <h3><strong>jake uche</strong></h3>
-              <p>08102343377</p>
+              
+              <h3><strong>{{customer.firstname }} {{customer.lastname}}</strong></h3>
+              <p>{{customer.phone}}</p>
             </ion-col>
 
             <ion-col size="5" class="ion-text-end">
-              <h3>$500.00</h3>
-              <p>30 Jun 2018, 11:59 am</p>
-            </ion-col>
-          </ion-row>
-        </ion-item>
-
-        <ion-item
-          button="true"
-          @click="$router.push('/customerdetail')"
-          class="animate__animated animate__fadeInUp"
-        >
-          <ion-row>
-            <ion-col size="7">
-              <h3><strong>Jake chidi</strong></h3>
-              <p>08102345677</p>
-            </ion-col>
-
-            <ion-col size="5" class="ion-text-end">
-              <h3>$800.00</h3>
-              <p>30 Jun 2018, 11:59 am</p>
+              <h3>$500.00</h3> {{isShow()}}
+              <p>{{filter(customer.createdAt)}}</p>
             </ion-col>
           </ion-row>
         </ion-item>
@@ -67,13 +51,14 @@
         </ion-fab-button>
       </ion-fab>
     </ion-content>
-
+    <!-- <Loader/> -->
     <!-- ion menu here -->
   </base-layout>
 </template>
 
 <script>
 import CreateCustomer from "@/components/Modals/CreateCustomerModal.vue";
+import moment from 'moment'
 import {
   IonPage,
   IonTitle,
@@ -93,6 +78,11 @@ import {
   IonLabel,
   actionSheetController,
   modalController,
+  IonSearchbar,
+  IonFab,
+  IonFabButton,
+  IonItem
+  
 } from "@ionic/vue";
 import {
   cardOutline,
@@ -113,9 +103,14 @@ export default {
       showSearchColor: false,
     };
   },
-  mounted() {},
+  mounted() {
+    
+  },
   components: {
     // DessetModal,
+   
+    IonFab,
+    IonSearchbar,
     IonCard,
     IonList,
     IonMenuButton,
@@ -132,9 +127,26 @@ export default {
     IonCol,
     IonText,
     IonLabel,
+    IonFabButton,
+  IonItem
   },
-
+  computed:{
+    
+  },
   methods: {
+   
+    filter(value, formatType = 'LL'){
+      if(!value) return ""
+      return moment(value).format((formatType = "LL"))
+    },
+    customers(){
+      return this.$store.state.customer.customer
+    },
+ isShow(){
+    return this.$store.getters['customer/isShow']
+     
+    },
+    
     hideColor() {
       this.showSearchColor = false;
     },

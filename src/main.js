@@ -1,65 +1,69 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router';
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
 
-import { IonicVue } from '@ionic/vue';
-import store from './store'
+import { IonicVue } from "@ionic/vue";
+import store from "./store";
 
-import 'vue-tel-input/dist/vue-tel-input.css'
+import "vue-tel-input/dist/vue-tel-input.css";
 
 /* Core CSS required for Ionic components to work properly */
-import '@ionic/vue/css/core.css';
+import "@ionic/vue/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
-import '@ionic/vue/css/normalize.css';
-import '@ionic/vue/css/structure.css';
-import '@ionic/vue/css/typography.css';
+import "@ionic/vue/css/normalize.css";
+import "@ionic/vue/css/structure.css";
+import "@ionic/vue/css/typography.css";
 
 /* Optional CSS utils that can be commented out */
-import '@ionic/vue/css/padding.css';
-import '@ionic/vue/css/float-elements.css';
-import '@ionic/vue/css/text-alignment.css';
-import '@ionic/vue/css/text-transformation.css';
-import '@ionic/vue/css/flex-utils.css';
-import '@ionic/vue/css/display.css';
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap'
-import 'qrious'
+import "@ionic/vue/css/padding.css";
+import "@ionic/vue/css/float-elements.css";
+import "@ionic/vue/css/text-alignment.css";
+import "@ionic/vue/css/text-transformation.css";
+import "@ionic/vue/css/flex-utils.css";
+import "@ionic/vue/css/display.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap";
+import "qrious";
 
-
- 
 /* Theme variables */
-import './theme/variables.css';
-import './theme/action.css'
-import './theme/core.css'
-import BaseLayout from './components/Base/BaseLayout'
-import '@/actionSheet'
-import icons from '@/icon'
-import { defineCustomElements } from '@ionic/pwa-elements/loader';
+import "./theme/variables.css";
+import "./theme/action.css";
+import "./theme/core.css";
+import BaseLayout from "./components/Base/BaseLayout";
+import "@/actionSheet";
+import icons from "@/icon";
+import { defineCustomElements } from "@ionic/pwa-elements/loader";
 import EventBus from "@/EventBus";
 
-import 'vue2-slot-calendar/lib/calendar.min.css';
-import calendar from 'vue2-slot-calendar/lib/calendar';
-import VueSweetalert2 from 'vue-sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
-import Loader from '@/components/loader'
+import "vue2-slot-calendar/lib/calendar.min.css";
+import calendar from "vue2-slot-calendar/lib/calendar";
+import VueSweetalert2 from "vue-sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+import Loader from "@/components/loader";
+import moment from 'moment';
+import vuelidate from 'vuelidate'
+import { toastController } from '@ionic/vue'
 
 const app = createApp(App)
   .use(IonicVue)
   .use(router)
   // .use(sweetAlert)
- 
-  .use(store)
-  app.config.globalProperties.icons = icons
-  app.config.globalProperties.$EventBus  = EventBus 
 
-  app.component('Calendar', calendar)
-  app.component('Loader', Loader)
-app.component('base-layout', BaseLayout ) 
+  .use(store);
+app.config.globalProperties.icons = icons;
+app.config.globalProperties.$EventBus = EventBus;
+app.config.globalProperties.$Toast = toastController
+
+app.component("Calendar", calendar);
+app.component("Loader", Loader);
+app.component("base-layout", BaseLayout);
 app.use(VueSweetalert2);
+
+
+
 router.isReady().then(() => {
-  
-  app.mount('#app');
+  app.mount("#app");
 });
 
 defineCustomElements(window);

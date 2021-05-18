@@ -7,7 +7,6 @@ import {
   barcodeSharp,
   pricetagOutline,
   pricetagsSharp,
-  
   barcodeOutline,
   bagAddSharp,
   arrowBack,
@@ -42,11 +41,16 @@ import {
   close,
   documentAttachOutline,
   trash,
-  listOutline
+  listOutline,
+  grid,
+  pricetages
 
 } from "ionicons/icons";
 
 const icon = {
+  grid,
+  pricetag,
+  pricetages,
   listOutline,
   documentAttachOutline,
   trash,
@@ -79,7 +83,7 @@ const icon = {
   addOutline,
   bagAddOutline,
   callOutline,
-  pricetag,
+  
   barcode,
   barcodeSharp,
   pricetagOutline,

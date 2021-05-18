@@ -1,19 +1,22 @@
 <template>
-<ion-page>
- <ion-content class="bg_color">
-    <div class="banner">
+  <ion-page>
+    <ion-content class="bg_color">
+      <div class="banner">
         <div class="logo_box">
-            <!-- <img src="assets/images/logo.png"> -->
+          <!-- <img src="assets/images/logo.png"> -->
         </div>
 
         <div class="banner_images">
-            <img src="assets/icon/Envintro-logo2.png" class="animate__animated animate__slideInUp">
+          <img
+            src="assets/icon/Envintro-logo2.png"
+            class="animate__animated animate__slideInUp"
+          />
         </div>
 
         <div class="form">
-            <form >
-                <ion-list lines="none">
-                    <!-- <ion-item class="animate__animated animate__fadeInUp" lines="none">
+          <form>
+            <ion-list lines="none">
+              <!-- <ion-item class="animate__animated animate__fadeInUp" lines="none">
                                     <div class="ite_inner d-flex">
                                         <ion-icon class="zmdi zmdi-globe-alt ion-text-start"></ion-icon>
                                         <ion-label mode="md" position="fixed">{{"select_country" | translate}}</ion-label>
@@ -22,57 +25,89 @@
                                         </ion-select>
                                     </div>
                                 </ion-item> -->
-                
-                    <ion-item class="animate__animated animate__fadeInUp" lines="none">
-                        <!-- <ion-label position="fixed">{{'mobile_number' | translate}}</ion-label>-->
-                        <div class="ite_inner d-flex">
-                            <ion-icon :icon="icons.phonePortrait" class="zmdi zmdi-smartphone-iphone ion-text-start"></ion-icon>
-                            <ion-input v-model="form.email" type="email" name="username"  placeholder="Email Address"></ion-input>
-                        </div>
-                    </ion-item>
-                    <ion-item class="animate__animated animate__fadeInUp" lines="none">
-                        <!-- <ion-label position="fixed">{{'mobile_number' | translate}}</ion-label>-->
-                        <div class="ite_inner d-flex">
-                            <ion-icon :icon="icons.lockClosed" class="zmdi zmdi-lock ion-text-start"></ion-icon>
-                            <ion-input  type="password" v-model="form.password" name="password"  placeholder="Password"></ion-input>
-                        </div>
-                    </ion-item>
-                    <ion-button @click="loginUser" size="large" shape="block" class="btn animate__animated animate__fadeInUp" type="button">Login</ion-button>
-                </ion-list>
-            </form>
 
-            <p>&nbsp;</p>
-            <div class="ion-text-center">
-                Don't have an account? <br /> <a class="action-click" @click="$router.push('/register')">Create a free one now</a>.
-            </div>
+              <ion-item
+                class="animate__animated animate__fadeInUp"
+                lines="none"
+              >
+                <!-- <ion-label position="fixed">{{'mobile_number' | translate}}</ion-label>-->
+                <div class="ite_inner d-flex">
+                  <ion-icon
+                    :icon="icons.phonePortrait"
+                    class="zmdi zmdi-smartphone-iphone ion-text-start"
+                  ></ion-icon>
+                  <ion-input
+                    v-model="form.email"
+                    type="email"
+                    name="username"
+                    placeholder="Email Address"
+                  ></ion-input>
+                </div>
+              </ion-item>
+              <ion-item
+                class="animate__animated animate__fadeInUp"
+                lines="none"
+              >
+                <!-- <ion-label position="fixed">{{'mobile_number' | translate}}</ion-label>-->
+                <div class="ite_inner d-flex">
+                  <ion-icon
+                    :icon="icons.lockClosed"
+                    class="zmdi zmdi-lock ion-text-start"
+                  ></ion-icon>
+                  <ion-input
+                    type="password"
+                    v-model="form.password"
+                    name="password"
+                    placeholder="Password"
+                  ></ion-input>
+                </div>
+              </ion-item>
+              <ion-button
+                @click="loginUser"
+                size="large"
+                shape="block"
+                class="btn animate__animated animate__fadeInUp"
+                type="button"
+                >Login</ion-button
+              >
+            </ion-list>
+          </form>
+
+          <p>&nbsp;</p>
+          <div class="ion-text-center">
+            Don't have an account? <br />
+            <a class="action-click" @click="$router.push('/register')"
+              >Create a free one now</a
+            >.
+          </div>
         </div>
-    </div>
-    <div class="quick_signin animate__animated animate__fadeInUp">
+      </div>
+      <div class="quick_signin animate__animated animate__fadeInUp">
         <h4 class="ion-text-center">or quick continue with</h4>
         <ion-row>
-            <ion-col size="6">
-                <ion-button size="large" shape="block" class="btn facebook">
-                    <!-- <img slot="start" src="assets/images/fb.png"> -->
-                    facebook
-                </ion-button>
-            </ion-col>
+          <ion-col size="6">
+            <ion-button size="large" shape="block" class="btn facebook">
+              <!-- <img slot="start" src="assets/images/fb.png"> -->
+              facebook
+            </ion-button>
+          </ion-col>
 
-            <ion-col size="6">
-                <ion-button size="large" shape="block" class="btn gmail" >
-                    <!-- <img slot="start" src="assets/images/google.png"> -->
-                    gmail
-                </ion-button>
-            </ion-col>
+          <ion-col size="6">
+            <ion-button size="large" shape="block" class="btn gmail">
+              <!-- <img slot="start" src="assets/images/google.png"> -->
+              gmail
+            </ion-button>
+          </ion-col>
         </ion-row>
-    </div>
-</ion-content>
-<Loader v-show="showSpinner"/>
-</ion-page>
+      </div>
+    </ion-content>
+    <Loader v-show="showSpinner" />
+  </ion-page>
 </template>
 
 <script>
 import { quotes } from "../quotes.js";
-import { Plugins } from '@capacitor/core';
+import { Plugins } from "@capacitor/core";
 
 const { Storage } = Plugins;
 
@@ -87,20 +122,20 @@ import {
   IonTitle,
   IonButtons,
   IonInput,
-  toastController
+  toastController,
 } from "@ionic/vue";
 
 export default {
   data() {
     return {
       quote: "",
-      showSpinner:false,
-     
+      showSpinner: false,
+
       history: "",
-      form:{
-      email: "uchechidi9@gmail.com",
-      password: "11111111",
-      }
+      form: {
+        email: "uchechidi9@gmail.com",
+        password: "11111111",
+      },
     };
   },
 
@@ -123,42 +158,42 @@ export default {
   created() {},
 
   methods: {
-  async setObject(user) {
-    let userData = user.data.user
-  await Storage.set({
-    key: 'user',
-    value: JSON.stringify({
-     userData
-    })
-  });
-},
- async toastMessage(){
-    
-      const toast = await toastController
-        .create({
-          message: 'You logged in successfully',
-          duration: 4000,
-          color:'success',
-          position:'top'
-        })
-      return toast.present();
-    
+    async setObject(user) {
+      let userData = user.data.user;
+      let token = user.data.token
+      await Storage.set({
+        key: "user",
+        value: JSON.stringify({
+          userData,
+          token
+        }),
+      });
     },
-    loginUser(){
-      this.showSpinner = true
-      this.$store.dispatch('auth/loginUser',this.form).
-      then(res=>{
-        this.showSpinner = false
-        console.log(res)
-        this.setObject(res)
-        this.$router.push('/dashboard')
-        this.toastMessage()
-      })
-      .catch(err=>{
-        this.showSpinner = false
+    async toastMessage() {
+      const toast = await toastController.create({
+        message: "You logged in successfully",
+        duration: 4000,
+        color: "success",
+        position: "top",
+      });
+      return toast.present();
+    },
+    loginUser() {
+      this.showSpinner = true;
+      this.$store
+        .dispatch("auth/loginUser", this.form)
+        .then((res) => {
+          this.showSpinner = false;
+          console.log(res);
+          this.setObject(res);
+          this.$router.push("/dashboard");
+          this.toastMessage();
+        })
+        .catch((err) => {
+          this.showSpinner = false;
 
-        console.log(err.response)
-      })
+          console.log(err.response);
+        });
     },
     getRandomSentence() {
       var index = Math.floor(Math.random() * quotes.length);
@@ -178,8 +213,8 @@ ion-header ion-toolbar {
   left: 0;
   --background: none !important;
 }
-ion-button{
-  height:60px!important
+ion-button {
+  height: 60px !important;
 }
 .banner {
   position: relative;
@@ -211,7 +246,6 @@ ion-button{
   width: 145px;
   display: block;
   margin: auto;
-  
 }
 .banner .welcome_text {
   position: relative;
@@ -234,17 +268,17 @@ ion-button{
 .banner .banner_images {
   position: relative;
   overflow: hidden;
-  margin-top:-100px
+  margin-top: -100px;
 }
 .banner .banner_images img {
   display: block;
   margin: 0 auto;
-  
+
   --animate-duration: 0.3s !important;
   height: 200px;
-    width: 200px;
-    margin-bottom: 30px;
-    margin-top: -20px;
+  width: 200px;
+  margin-bottom: 30px;
+  margin-top: -20px;
 }
 .banner .form ion-item {
   background: var(--white);
@@ -300,8 +334,7 @@ ion-button{
 .toast-wrapper {
   left: 10px;
 }
-.action-click{
-
+.action-click {
 }
 
 /* .input-group1 {
@@ -363,7 +396,7 @@ ion-button {
     margin-top: 200px;
 } */
 </style>
- <ion-page>
+<ion-page>
     <ion-content class="ioncontent">
       <!-- <ion-header class="ion-no-border"> -->
       <div class="title-text container">

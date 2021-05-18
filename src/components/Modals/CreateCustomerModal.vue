@@ -277,6 +277,7 @@
         </ion-card>
       </div>
     </div>
+     <Loader v-if="showSpinner"/>
   </ion-page>
 </template>
 
@@ -309,6 +310,7 @@ import {
   modalController,
   createAnimation,
   IonButton,
+  toastController
 } from "@ionic/vue";
 import AddContact from "@/components/Modals/AddBillings.vue";
 import { cardAnime } from "@/anime";
@@ -352,7 +354,8 @@ export default {
       imageUrl: "",
       doc: "",
       modalValue: false,
-      imageUrlArray:[]
+      imageUrlArray:[],
+      showSpinner: false
 
       
     };
@@ -387,8 +390,33 @@ export default {
   },
 
   methods: {
+    
     createCustomer(){
-      this.$store.dispatch('customer/createCustomer' ,this.form)
+      this.showSpinner = true
+      setTimeout(() => {
+        this.$store.dispatch('customer/createCustomer' ,this.form)
+      .then(()=>{
+        this.showSpinner = false
+        let message = 'Customer saved'
+        let color = 'success'
+        this.createToast(message,color)
+        this.closeModal()
+      })
+      .catch(err=>{
+        this.showSpinner = false
+         let message = 'An error occured while saving customer'
+        let color = 'danger'
+        this.createToast(message,color)
+      })
+      },3000);
+    },
+    async  createToast(message,color){
+      let toast = await toastController.create({
+        message:message,
+        color:color,
+        duration:3000
+      })
+      return toast.present()
     },
     openCustomeModal() {
       this.modalValue = true;

@@ -274,7 +274,7 @@
         </ion-list>
 
         <ion-button fill="clear" color="dark" @click="closeMenu()">
-          <ion-icon :icon="closeCircleOutline"></ion-icon>
+          <ion-icon :icon="icons.closeCircleOutline"></ion-icon>
         </ion-button>
       </div>
     </ion-content>
@@ -295,6 +295,12 @@ import {
   IonMenuToggle,
   IonIcon,
   IonButton,
+  IonTitle,
+  IonHeader,
+  IonToolbar,
+  IonCard,
+  
+
 } from "@ionic/vue";
 import {
   homeSharp,
@@ -325,6 +331,10 @@ export default defineComponent({
     IonMenuToggle,
     IonIcon,
     IonButton,
+      IonTitle,
+  IonHeader,
+  IonToolbar,
+  IonCard,
   },
   data() {
     return {

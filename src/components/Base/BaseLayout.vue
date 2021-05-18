@@ -50,7 +50,8 @@ import {
   IonContent,
   IonBackButton,
   IonButtons,
-  IonIcon
+  IonIcon,
+  IonButton
   
 } from "@ionic/vue";
 import { refreshCircleSharp } from 'ionicons/icons'
@@ -72,7 +73,8 @@ export default {
     IonToolbar,
     IonContent,
     IonButtons,
-    IonIcon
+    IonIcon,
+    IonButton
   },
 };
 </script>

@@ -28,14 +28,29 @@ export default defineComponent({
   },
   mounted() {
     const sheet = document.querySelector(".custome_css");
-    console.log(sheet);
+    
     console.log(this.$store)
     this.getItem();
+    this.getCustomers()
+    
   },
   methods: {
+      getCustomers(){
+      this.$store.dispatch('customer/getCustomers')
+      .then(res=>{
+        
+        const result = JSON.stringify(res)
+       
+      })
+      .catch(err=>{
+        console.log(err.response)
+      })
+    }
+    ,
     async getItem() {
       const { value } = await Storage.get({ key: "user" });
       const user = JSON.parse(value);
+      
       this.$store.dispatch("auth/getLocalStoredUser", user);
     },
   },

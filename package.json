@@ -25,12 +25,15 @@
     "bootstrap": "^4.6.0",
     "core-js": "^3.6.5",
     "cupertino-pane": "^1.2.61",
+    "fuse.js": "^6.4.6",
     "jquery": "^3.6.0",
     "mcx-dialog-mobile": "^0.2.0",
+    "moment": "^2.24.0",
     "phonegap-plugin-barcodescanner": "^8.1.0",
     "popper.js": "^1.16.1",
     "qrious": "^4.0.2",
     "tiny-emitter": "^2.1.0",
+    "vee-validate": "^4.4.0-alpha.2",
     "vue": "^3.0.0-0",
     "vue-phone-number-input": "^1.1.10",
     "vue-router": "^4.0.0-0",
@@ -39,6 +42,7 @@
     "vue-tel-input": "^5.2.0",
     "vue2-datepicker": "^3.9.0",
     "vue2-slot-calendar": "^2.2.5",
+    "vuelidate": "^0.7.6",
     "vuex": "^4.0.0"
   },
   "devDependencies": {

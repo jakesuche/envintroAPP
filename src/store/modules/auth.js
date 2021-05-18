@@ -4,7 +4,7 @@ const myAxios = axios.create({
 })
 import { Plugins } from '@capacitor/core'
 const { Storage } = Plugins
-
+//import axiosInstance from "@/services/axios";
 export default {
     namespaced:true,
     state:{
@@ -22,7 +22,7 @@ export default {
             return myAxios.post('/api/v1/users/register', userData)
         },
         verifyUser(context, otpCode){
-            console.log(otpCode)
+            
             return myAxios.post('/api/v1/users/verify', otpCode)
         },
         loginUser(context, userData){
@@ -34,8 +34,8 @@ export default {
             if(userData.value == null){
                 context.commit('setUser', null)
             }else{
-                console.log(new Object(userData))
-                console.log(userData)
+                
+                
                 context.commit('setUser', userData)     
             }
             

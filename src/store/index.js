@@ -1,11 +1,13 @@
 import { createStore } from 'vuex'
 import auth from '../store/modules/auth'
 import customer from '../store/modules/customer'
+import sales from '../store/modules/sales'
 
 const store = createStore({
     modules:{
         auth,
-        customer
+        customer,
+        sales
     }
     // state(){
         
