@@ -44,6 +44,7 @@ import Loader from "@/components/loader";
 import moment from 'moment';
 import vuelidate from 'vuelidate'
 import { toastController } from '@ionic/vue'
+import { CupertinoPane } from "cupertino-pane";
 
 const app = createApp(App)
   .use(IonicVue)
@@ -53,7 +54,8 @@ const app = createApp(App)
   .use(store);
 app.config.globalProperties.icons = icons;
 app.config.globalProperties.$EventBus = EventBus;
-app.config.globalProperties.$Toast = toastController
+app.config.globalProperties.$Toast = toastController;
+app.config.globalProperties.$Pane = CupertinoPane
 
 app.component("Calendar", calendar);
 app.component("Loader", Loader);

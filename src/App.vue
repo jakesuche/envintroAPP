@@ -26,6 +26,7 @@ export default defineComponent({
     MenuLeft,
     IonSplitPane,
   },
+  
   mounted() {
     const sheet = document.querySelector(".custome_css");
     
@@ -34,7 +35,13 @@ export default defineComponent({
     this.getCustomers()
     
   },
+  created(){
+    this.getSales()
+  },
   methods: {
+      getSales(){
+        this.$store.dispatch('sales/getSales')
+      },
       getCustomers(){
       this.$store.dispatch('customer/getCustomers')
       .then(res=>{

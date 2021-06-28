@@ -31,6 +31,9 @@
       </ion-toolbar>
     </ion-header>
     <ion-content fullscreen>
+      
+     
+
       <div class="form">
         <ion-list lines="none">
           <div id="anime">
@@ -44,22 +47,37 @@
                   class="zmdi zmdi-account ion-text-start"
                 ></ion-icon>
                 <!-- <ion-label position="floating">phone_number</ion-label> -->
-                <ion-input v-model="query" placeholder="Customer Name" type="text"></ion-input>
+                <ion-input
+                  @ionFocus="returnZero(true)"
+                  @ionBlur="returnZero(false)"
+                  v-model="query"
+                  placeholder="Customer Name"
+                  type="text"
+                >  <ion-spinner v-if="showSpinSearch" name="crescent"></ion-spinner></ion-input>
               </div>
+              <div>
+                iicejejej
+                </div>
             </ion-item>
+            
           </div>
-    <div class="absolute" v-if="query.length > 0">
-      
-      <ul class="list-group">
-  <li v-for="(item, index) in performSearch()" :key="index" class="list-group-item">{{item.item.firstname}} {{item.item.lastname}}</li>
-  
-  <li v-if="performSearch().length === 0" class="list-group-item">
-    No result found for {{query}}
-  </li>
- 
+          <div class="absolute" v-if="query.length > 0 && zeroSearch">
+            <ul class="list-group">
+              <li
+                v-for="(item, index) in performSearch()"
+                :key="index"
+                class="list-group-item"
+                @click="addToSchema(item)"
+              >
 
-</ul>
-    </div>
+                {{ item.item.firstname }} {{ item.item.lastname }}
+              </li>
+
+              <li v-if="performSearch().length === 0" class="list-group-item">
+                No result found for {{ query }}
+              </li>
+            </ul>
+          </div>
 
           <div id="anime">
             <ion-item class="animate__animated animate__fadeInUp" lines="none">
@@ -69,7 +87,11 @@
                   class="zmdi zmdi-account ion-text-start"
                 ></ion-icon>
                 <!--				<ion-label position="fixed">{{'full_name' | translate}}</ion-label>-->
-                <ion-input placeholder="Invoice Number" v-model="form.invoicenumber" type="name"></ion-input>
+                <ion-input
+                  placeholder="Invoice Number"
+                  v-model="form.invoicenumber"
+                  type="name"
+                ></ion-input>
               </div>
             </ion-item>
           </div>
@@ -81,7 +103,11 @@
                   class="zmdi zmdi-email ion-text-start"
                 ></ion-icon>
                 <!--				<ion-label position="fixed">{{'email_address' | translate}}</ion-label>-->
-                <ion-input v-model="form.ordernumber" placeholder="Order Number" type="name"></ion-input>
+                <ion-input
+                  v-model="form.ordernumber"
+                  placeholder="Order Number"
+                  type="name"
+                ></ion-input>
               </div>
             </ion-item>
           </div>
@@ -96,8 +122,8 @@
                 <ion-label class="no-effect" style="font-size: 18px !important;"
                   >Sales Order Date <span class="times"> *</span>
                 </ion-label>
-                <ion-datetime 
-                @ionChange="getIssueDate($event)"
+                <ion-datetime
+                  @ionChange="getIssueDate($event)"
                   v-model="form.DateIssued"
                   value="2021-01-01"
                   placeholder="Select Date"
@@ -126,10 +152,10 @@
                 ></ion-icon>
                 <!--				<ion-label position="fixed">{{'email_address' | translate}}</ion-label>-->
                 <ion-label class="no-effect" style="font-size: 18px !important;"
-                  >Expected shippent date  <span class="times"> *</span>
+                  >Expected shippent date <span class="times"> *</span>
                 </ion-label>
                 <ion-datetime
-                @ionChange="getdueDate($event)"
+                  @ionChange="getdueDate($event)"
                   value="2021-01-01"
                   placeholder="Select Date"
                 ></ion-datetime>
@@ -148,8 +174,7 @@
                   >Time issued</ion-label
                 >
                 <ion-datetime
-                @ionChange="getTimeIssued($event)"
-                
+                  @ionChange="getTimeIssued($event)"
                   display-format="h:mm A"
                   picker-format="h:mm A"
                   value="2021-01-01"
@@ -168,7 +193,10 @@
                 <ion-label style="font-size: 18px !important;"
                   >Sales Person</ion-label
                 >
-                <ion-select @ionChange="getSelected($event)" interface="popover">
+                <ion-select
+                  @ionChange="getSelected($event)"
+                  interface="popover"
+                >
                   <ion-select-option value="uchechukwu"
                     >Uchechukwu</ion-select-option
                   >
@@ -180,7 +208,7 @@
               </div>
             </ion-item>
           </div>
-           <div id="anime">
+          <div id="anime">
             <ion-item class="animate__animated animate__fadeInUp" lines="none">
               <div class="ite_inner d-flex">
                 <ion-icon
@@ -188,7 +216,11 @@
                   class="zmdi zmdi-email ion-text-start"
                 ></ion-icon>
                 <!--				<ion-label position="fixed">{{'email_address' | translate}}</ion-label>-->
-                <ion-input  v-model="form.deliveryMethod" placeholder="Delivery Method" type="name"></ion-input>
+                <ion-input
+                  v-model="form.deliveryMethod"
+                  placeholder="Delivery Method"
+                  type="name"
+                ></ion-input>
               </div>
             </ion-item>
           </div>
@@ -219,7 +251,11 @@
                   class="zmdi zmdi-email ion-text-start"
                 ></ion-icon>
                 <!--				<ion-label position="fixed">{{'email_address' | translate}}</ion-label>-->
-                <ion-input v-model="form.customerNote" placeholder="Customer Notes" type="name"></ion-input>
+                <ion-input
+                  v-model="form.customerNote"
+                  placeholder="Customer Notes"
+                  type="name"
+                ></ion-input>
               </div>
             </ion-item>
           </div>
@@ -231,7 +267,7 @@
                   class="zmdi zmdi-email ion-text-start"
                 ></ion-icon>
                 <!--				<ion-label position="fixed">{{'email_address' | translate}}</ion-label>-->
-                <ion-input 
+                <ion-input
                   v-model="form.termsAndCondition"
                   placeholder="Terms & Conditions"
                   type="name"
@@ -248,9 +284,9 @@
               <div class="ite_inner d-flex">
                 <ion-card>
                   <ion-card-content>
-                    <pre>
+                    <!-- <pre>
                 {{performSearch()}}
-              </pre>
+              </pre> -->
                     <ion-button
                       fill="clear"
                       class="uploadfile"
@@ -282,6 +318,7 @@
             </ion-card-header> -->
 
           <!-- class="product-slider ion-padding-start" -->
+          
           <div v-if="imageUrlArray.length > 0">
             <ion-slides
               pager="true"
@@ -311,7 +348,6 @@
               <ion-button @click="takePhoto" class="attachment-button">
                 Add Attachment
               </ion-button>
-              
             </div>
             <div class="justify-content-around" v-if="imageUrlArray.length > 0">
               <ion-button>
@@ -328,8 +364,8 @@
         </ion-card>
       </div>
     </div>
-    <AddLineItem/>
-    <Loader  v-show="showLoader"/>
+    <AddLineItem />
+    <Loader v-show="showLoader" />
   </ion-page>
 </template>
 
@@ -369,41 +405,45 @@ import {
   IonSelect,
   IonSelectOption,
   IonDatetime,
-  toastController
+  toastController,
+  IonSpinner
 } from "@ionic/vue";
 import AddContact from "@/components/Modals/AddBillings.vue";
-import AddLineItem from '@/components/Modals/addLineItem'
+import AddLineItem from "@/components/Modals/addLineItem";
 import { cardAnime } from "@/anime";
 import Fuse from "fuse.js";
 // import anime from 'animejs'
 export default {
   data() {
     return {
+      zeroSearch:true,
+      customer: this.$store.state.customer.customer,
       arrowBack,
       readerOutline,
       individual: "individual",
       business: "business",
       name: "",
       check: "",
-      OpenLineItem:false,
-      showLoader:false,
-      query:'',
+      OpenLineItem: false,
+      showLoader: false,
+      query: "",
       form: {
-       customer:'',
-       invoicenumber:'',
-       ordernumber:'',
-       shipmentDate:'',
-       timeIssued:'',
-       DateIssued:'',
-       salesPerson:'',
-       images:[],
-       termsAndCondition:'',
-       customerNote:'',
-       deliveryMethod:'',
-       quantity:'',
-       rate:'',
-       description:'',
-       item:''
+        customer: "",
+        invoicenumber: "",
+        ordernumber: "",
+        shipmentDate: "",
+        timeIssued: "",
+        DateIssued: "",
+        salesPerson: "",
+        images: [],
+        termsAndCondition: "",
+        customerNote: "",
+        deliveryMethod: "",
+        quantity: "",
+        rate: "",
+        description: "",
+        item: "",
+        customerId:''
       },
       addCircleSharp,
       showAddSocial: false,
@@ -424,17 +464,20 @@ export default {
         keys: ["firstname", "lastname"],
         searchResultVisible: false,
       },
+      showSpinSearch:false,
     };
   },
   mounted() {
     const doc = document.querySelectorAll("#anime");
     this.animate(doc);
-    
-    this.$EventBus().emitter.on('addForm',(data)=>{
+
+    this.$EventBus().emitter.on("addForm", (data) => {
       this.form = { ...this.form, ...data };
-      console.log(data)
-    })
-    
+      console.log(data);
+    });
+    if(this.query.length == 0){
+      this.showSpinSearch = false
+    }
   },
   created() {},
   components: {
@@ -460,75 +503,97 @@ export default {
     IonCheckbox,
     AddContact,
     IonButton,
-     IonSelect,
-  IonSelectOption,
-  AddLineItem,
-  
+    IonSelect,
+    IonSelectOption,
+    AddLineItem,
+    IonSpinner
   },
-
+  
   methods: {
+    addToSchema(item){
+      this.zeroSearch = false
+      this.showSpinSearch = false
+      console.log(item)
+      this.form.customerId =  item.item._id
+      this.form.customer = `${item.item.lastname} ${item.item.firstname }`
+      this.query = `${item.item.lastname} ${item.item.firstname }`
+      
+    },
+    returnZero(result) {
+
+      if(result == false){
+        setTimeout(() => {
+          this.zeroSearch = result
+          this.showSpinSearch = result
+        }, 100);
+      }else{
+        this.zeroSearch = result
+        this.showSpinSearch = result
+      }
+     
+     
+    },
     
-    openLineItem(){
-      this.$EventBus().emitter.emit('OpenLine', true)
+    openLineItem() {
+      this.$EventBus().emitter.emit("OpenLine", true);
     },
 
-    getSelected(e){
-     this.form.salesPerson = e.target.value
+    getSelected(e) {
+      this.form.salesPerson = e.target.value;
     },
-    getdueDate(e){
-      this.form.shipmentDate = e.target.value
+    getdueDate(e) {
+      this.form.shipmentDate = e.target.value;
     },
-    getTimeIssued(e){
-      this.form.timeIssued = e.target.value
+    getTimeIssued(e) {
+      this.form.timeIssued = e.target.value;
     },
-    getIssueDate(e){
-      this.form.DateIssued = e.target.value
+    getIssueDate(e) {
+      this.form.DateIssued = e.target.value;
     },
-    async toast(params){
+    async toast(params) {
       let toast = await this.$Toast.create({
         message: params.message,
         duration: params.duration,
-        color:params.color,
-        position:'top',
+        color: params.color,
+        position: "top",
         buttons: [
-           {
-              text: 'Done',
-              role: 'cancel',
-              handler: () => {
-                
-              }
-            }
-          ]
-      })
-      return toast.present()
+          {
+            text: "Done",
+            role: "cancel",
+            handler: () => {},
+          },
+        ],
+      });
+      return toast.present();
     },
-    createSales(){
-      this.showLoader = true
-      this.$store.dispatch('sales/createSales', this.form)
-      .then(()=>{
-        this.showLoader= false
-        const params ={
-          message:"Your sales has beem added suceess",
-          color:'success',
-          duration:3000
-          
-        }
-        this.toast(params)
-      })
-      .catch(err=>{
-        this.showLoader = false
-        console.log(err.response)
-        console.log(err.response.data.err.message)
-        const params = {
-          message:err.response.data.err.message,
-          color:'warning',
-          duration:100000
-        }
-        this.toast(params)
-      })
+    createSales() {
+      this.showLoader = true;
+      this.$store
+        .dispatch("sales/createSales", this.form)
+        .then(() => {
+          this.showLoader = false;
+          const params = {
+            message: "Your sales has beem added suceess",
+            color: "success",
+            duration: 3000,
+          };
+          this.toast(params);
+        })
+        .catch((err) => {
+          this.showLoader = false;
+          console.log(err.response);
+          console.log(err.response.data.err.message);
+          const params = {
+            message: err.response.data.err.message,
+            color: "warning",
+            duration: 100000,
+          };
+          this.toast(params);
+        });
     },
     performSearch() {
-      const customer = this.$store.state.customer.customer;
+      this.zeroSearch = true
+      const customer = this.customer;
       const fuse = new Fuse(customer, this.options);
       return fuse.search(this.query);
     },
@@ -583,37 +648,6 @@ export default {
   },
 };
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <style scoped>
 .addline {
@@ -772,5 +806,9 @@ ion-buttons ion-button ion-icon {
   width: 100%;
   z-index: 100;
 }
+ion-spinner{
+  margin-left: 1px;
+    position: absolute;
+    right: 0;
+}
 </style>
-

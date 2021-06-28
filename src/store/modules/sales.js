@@ -28,15 +28,28 @@ export default {
         .then((res) => {
           
           const sales = res.data;
-          context.commit("setSales", sales);
+          console.log(sales)
+          context.commit("addSales", sales);
         });
     },
+    getSales(context){
+      return axiosInstance
+      .get('/api/v1/sales/getsales')
+      .then((res)=>{
+        console.log(res)
+        const sales = res.data
+        context.commit('setSales', sales)
+      })
+    }
    
   },
   mutations: {
-    setUser(state, sales) {
+    addSales(state, sales) {
       state.sales.unshift(sales)
     },
+    setSales(state,sales){
+      state.sales = sales
+    }
     
    
   },
